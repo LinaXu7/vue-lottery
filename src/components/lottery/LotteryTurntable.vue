@@ -309,38 +309,6 @@
         }
 
       },
-      // prepareLottery() {
-      //   var turnplate = this.turnplate
-      //   var lottery = new LotteryDial(document.getElementById('wheelcanvas'), { // eslint-disable-line
-      //     speed: 30, // 每帧速度
-      //     areaNumber: this.restaraunts.length // 奖区数量
-      //   })
-      //   var index = -1
-
-      //   lottery.on('start', () => {
-      //     // 请求获取中奖结果
-      //     index = Math.round(Math.random() * (this.restaraunts.length - 1))
-      //     this.result = this.restaraunts[index]
-      //     if(this.restaraunts[index] === '谢谢参与') {
-      //       this.result = null
-      //     }
-      //     console.log(index)
-      //     // // 计算中奖的旋转角度
-      //     this.wheelDeg = this.wheelDeg - this.wheelDeg % 360 + 3600 + (360 - 360 / this.restaraunts.length * index) - (
-      //       180 - 360 / this.restaraunts.length);
-      //     lottery.setResult(index, this.wheelDeg)
-      //   })
-
-      //   lottery.on('end', () => {
-      //     console.log('中奖奖区：' + index)
-      //     // 关闭中奖结果
-      //     setTimeout(() => {
-      //       this.showResult = true;
-      //       this.rolling = false;
-      //     }, 800)
-      //   })
-      //   this.lottery = lottery
-      // },
       startGame(){
         const page = this;
         // this.lottery.draw()

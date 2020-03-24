@@ -8,16 +8,24 @@
  */
 import axios from 'axios';
 
-var page = this;
+let baseUrl = 'http://localhost:8081';
 
-axios.interceptors.request.use(request => {
+var page = this;
+let service = axios.create({
+  baseUrl: baseUrl,
+  timeout: 20000,  // 请求超时时间
+  crossDomain: true,//设置cross跨域
+  withCredentials: true//设置cross跨域 并设置访问权限 允许跨域携带cookie信息
+})
+
+service.interceptors.request.use(request => {
   request.headers = {
     'Content-Type':'application/x-www-form-urlencoded'
   }
   return request;
 });
 
-axios.interceptors.response.use(response =>
+service.interceptors.response.use(response =>
   new Promise((resolve, reject) => {
     switch (response.data.code) {
       case 500: if (response.data.message) {
@@ -50,4 +58,4 @@ axios.interceptors.response.use(response =>
     });
 });
 
-export default axios;
+export default service;

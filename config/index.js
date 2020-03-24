@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-12 10:32:29
- * @LastEditTime: 2020-03-14 17:22:25
+ * @LastEditTime: 2020-03-18 14:52:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /vue-lottery/config/index.js
@@ -19,10 +19,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8080',
         pathRewrite: {
           '^/api': '/static/mock'
-        }
+        },
+        target: 'http://localhost:8081',
+        changeOrigin: true
       }
     },
 
@@ -57,7 +58,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/',   // 打包项目后，放到后端项目的路径
 
     /**
      * Source Maps

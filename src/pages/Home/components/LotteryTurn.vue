@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="luckyHead">
       <img :src="luckyLottery" class="luckyLottery"/>
-      <img :src="lotteryTitle" class="lotteryTitle"/>
+      <!-- <img :src="lotteryTitle" class="lotteryTitle"/> -->
       <button class="lotteryChance">你还有 {{lotteryChance}} 次抽奖机会</button>
     </div>
     <div class="banner">
@@ -12,9 +12,6 @@
       </div>
       <img :src="shanImg" id="shan-img" style="display:none;"/>
       <img :src="sorryImg" id="sorry-img" style="display:none;"/>
-    </div>
-    <div class="desc">
-      <p>本页面展示的奖券信息由南京伴盾网络科技有限公司提供，信息的真实性、准确性、合法性以及商品所载服务内容的安全性由南京伴盾网络科技有限公司负责</p>
     </div>
     <div class="result" v-show="showResult">
     </div>
@@ -27,6 +24,7 @@
         <img :src="yBtn" alt="" />
         <div class="btn-title">{{!!result ? "免费领取" : "确定"}}</div>
       </div>
+      <div class="modal-close-prize" @click="showResult = false"></div>
     </div>
   </div>
 </template>
@@ -38,18 +36,14 @@
     background-size:cover;
   }
   .wrapper .luckyHead {
-    margin-bottom: 10%;
+    margin-bottom: 5%;
   }
   .wrapper .luckyHead .luckyLottery {
     width: 75%;
-    height: 33%;
-    margin-top: 40px;
   }
 
   .wrapper .luckyHead .lotteryTitle {
     width: 70%;
-    height: 20%;
-    margin-bottom: 10%;
   }
 
   .wrapper .luckyHead .lotteryChance {
@@ -57,10 +51,10 @@
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border: 1px solid rgb(211, 121, 69);
+    border: 1px solid #fb6664;
     border-radius: 27px;
-    background-color: rgb(211, 121, 69);
-    color:wheat;
+    background-color: #fb6664;
+    color:#8A2126;
     font-size: 16px;
   }
   .banner {
@@ -79,7 +73,7 @@
     height: auto;
     position: relative;
     margin: 0 auto;
-    background-image: url('../../../assets/img/turnplate-bg.png');
+    background-image: url('../../../assets/img/turnplte.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     transition: transform 8s ease-in-out;
@@ -100,15 +94,6 @@
     overflow: hidden;
     transition: transform 8s ease-in-out;
     z-index: 2;
-  }
-
-  .wrapper .desc {
-    width:89%;
-    position:fixed;
-    left: 5%;
-    bottom: 0;
-    color:white;
-    font-size: 16px;
   }
 
   .wrapper .result {
@@ -137,8 +122,8 @@
   .center .info {
     background: #fff;
     color: #a16f0f;
-    font-size: 26px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 400;
     text-align: center;
     line-height: 55px;
     margin-top: -5px;
@@ -146,7 +131,7 @@
   
   .center .btn {
     display: block;
-    margin-top: 50px;
+    margin-top: 15px;
     text-align: center;
     height: 50px;
     box-sizing: border-box;
@@ -158,28 +143,34 @@
     font-size: 0;
     margin: 0 auto;
     width: auto;
-    height: 55px;
+    height: 40px;
   }
 
   .center .btn .btn-title {
-    color: #a16f0f;
-    font-size: 26px;
-    font-weight: bold;
-    line-height: 55px;
-    margin-top: -55px;
+    color: #ffc300;
+    font-size: 20px;
+    line-height: 40px;
+    margin-top: -40px;
   }
-
+  .center .modal-close-prize {
+    position: absolute;
+    right: -26px;
+    top: -80px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: url('../../../assets/img/icon_close@2x.png') no-repeat center center;
+    background-size: 99%;
+  }
 </style>
 <script>
-  // import LotteryDial from './dial'
   import imgSrc from '../../../assets/img/center.png'
   import shanImg from '../../../assets/img/1.png'
   import sorryImg from '../../../assets/img/2.png'
   import winImg from '../../../assets/img/zhong.png'
   import pityImg from '../../../assets/img/wei.png'
-  import yBtn from '../../../assets/img/yBtn.png'
-  import luckyLottery from '../../../assets/img/lottery.png'
-  import lotteryTitle from '../../../assets/img/lotteryTitle.png'
+  import yBtn from '../../../assets/img/btn.png'
+  import luckyLottery from '../../../assets/img/lotteryLogo.png'
   import { getprizeInfo } from '../../../apiConfig/api'
 
   export default{
@@ -192,14 +183,37 @@
         yBtn,
         winImg,
         luckyLottery,
-        lotteryTitle,
         lottery: null,
         showResult: false,
         result: null,
         rolling: false,
         wheelDeg: 0,
-        lotteryChance: 1,
-        restaraunts:[],
+        lotteryChance: 2,
+        restaraunts:[{
+          id: 1,
+          name: "拼多多红包",
+          toUrl: "https://mobile.yangkeduo.com/duo_similar_goods.html?pid=9136059_112365517&dis_t=1&cpsSign=CR_200220_9136059_112365517_711d6e686c8fbe0be9ab55c5305bfcde&duoduo_type=2"
+        }, {
+          id: 2,
+          name: "20元优惠券",
+          toUrl: "https://mobile.yangkeduo.com/duo_coupon_landing.html?goods_id=184091886&pid=9136059_126089469&cpsSign=CC_200316_9136059_126089469_fce1278f5d3819aa8f2b513b9709f1be&duoduo_type=2"
+        }, {
+          id: 3,
+          name: "手游礼包",
+          toUrl: "https://qlapi.shileke.net/api/down/game?g=wangzhezhijianiosios&u=shangxiao&i=1351"
+        }, {
+          id: 4,
+          name: "好物优惠券",
+          toUrl: "https://shop42459384.youzan.com/wscump/coupon/fetchByToken?isWeapp=0&token=c3afb07cfe8bdce7226b098d1be3d340#/"
+        }, {
+          id: 5,
+          name: "百万意外险",
+          toUrl: "https://www.heiniubao.com/welfare/shanglianghf1"
+        }, {
+          id: 6,
+          name: "谢谢参与",
+          toUrl: null
+        }],
         turnplate: {
           outsideRadius: 192,			//大转盘外圆的半径
           textRadius: 145,				//大转盘奖品位置距离圆心的距离
@@ -218,22 +232,25 @@
     mounted() {
       this.loadImgs(() => {
         // this.prepareLottery()
-        this.getLotteryInfo();
+        // this.getLotteryInfo();
+        console.log(this.restaraunts);
+        this.drawRouletteWheel();
+        this.$nextTick(() => {
+          if(localStorage.getItem('lotteryChance')) {
+            this.lotteryChance = localStorage.getItem('lotteryChance');
+            localStorage.removeItem('lotteryChance');
+          }
+        })
       })  
     },
 
     methods: {
       getLotteryInfo() {
-        return new Promise((resolve, reject) => {
-          getprizeInfo().then((res) => {
-            const resData = res.data;
-            this.restaraunts = resData.list;
-            this.drawRouletteWheel();
-            resolve();
-          }).catch(() => {
-            reject();
-          });
-        });
+        getprizeInfo().then((res) => {
+          console.log(res);
+          this.restaraunts = res.list;
+          this.drawRouletteWheel();
+        })
       },
       drawRouletteWheel() {
         var canvas = document.getElementById("wheelcanvas");
@@ -248,12 +265,12 @@
         //在给定矩形内清空一个矩形
         ctx.clearRect(0, 0, 422, 422);
         //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
-        ctx.strokeStyle = "#FFBE04";
+        ctx.strokeStyle = "#fb6664";
         //font 属性设置或返回画布上文本内容的当前字体属性
-        ctx.font = '22px Microsoft YaHei';
+        ctx.font = 'bolder 23px Arial';
         for (var i = 0; i < len; i++) {
           var angle = turnplate.startAngle + i * arc;
-          ctx.fillStyle = i % 2 === 0 ? '#ffdb37' : '#ffb725'; //设置每个扇形区域的颜色
+          ctx.fillStyle = i % 2 === 0 ? '#fb6664' : '#eb7c7c'; //设置每个扇形区域的颜色
           ctx.beginPath();
           //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）
           ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);
@@ -264,7 +281,7 @@
           ctx.save();
 
           //----绘制奖品开始----
-          ctx.fillStyle = "#e9311f";
+          ctx.fillStyle = "#ffffff";
           var text = this.restaraunts[i].name;
           var line_height = 17;
           //translate方法重新映射画布上的 (0,0) 位置
@@ -308,7 +325,6 @@
           ctx.restore();
           //----绘制奖品结束----
         }
-
       },
       startGame(){
         const page = this;
@@ -320,6 +336,7 @@
           return;
         }
         this.lotteryChance -= 1;
+        localStorage.setItem('lotteryChance', this.lotteryChance);
         if (this.showResult) {
           this.showResult = false;
           return;
@@ -331,7 +348,7 @@
         // 这里应该从后台获取中奖结果，我们随便模拟一下中奖结果
         var winIndex = parseInt(Math.random() * (this.restaraunts.length + 1), 10);
         // var winIndex = 5;
-        console.log(this.restaraunts[winIndex].name);
+
         this.result = this.restaraunts[winIndex];
         if (this.result.name === '谢谢参与') {
           this.result = null;
@@ -339,7 +356,7 @@
         // 计算中奖的旋转角度
         this.wheelDeg = this.wheelDeg - this.wheelDeg % 360 + 3600 + (360 - 360 / this.restaraunts.length * winIndex) - (
           180 - 360 / this.restaraunts.length);
-        
+
         // 关闭中奖结果
         setTimeout(() => {
           this.showResult = true;
@@ -348,7 +365,7 @@
       },
       close(result) {
         if(!!result) {
-          window.location.href = result.img.imgUrl;
+          window.location.href = result.toUrl;
         } 
         this.showResult = false;
       },
